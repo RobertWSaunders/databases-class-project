@@ -30,37 +30,23 @@ The OMTS application needs to support two categories of functions - one for memb
 Members:
 
 * Make an account including a login id and password
-
 * Browse movies playing at the various theatre complexes
-
 * Purchase some number of tickets for one or more movies showing at one or more theatres
-
 * View their purchases
-
 * Cancel a purchase
-
 * Update their personal details -- ie. modify their profile
-
 * Browse their past rentals
-
 * Add a review for a movie
 
 Administrators
 
 * List all the members
-
 * Remove a member
-
 * Add or update the information for a theatre complex/theatre
-
 * Add movies to the database
-
 * Update where/when movies are showing
-
 * For a particular customer, show their rental history (including current tickets held)
-
 * Find the movie that is the most popular (ie. has sold the * most tickets across all theatres)
-
 * Find the theatre complex that is most popular (ie. has * sold the most tickets across all movies)
 
 These requirements are a minimum.  You may find that you need to add additional data and or functionality to make your application realistic, or to demonstrate that it works.
@@ -96,7 +82,7 @@ total and partial completeness
 ## Data Definition Language
 
 both flavours of sql
-transistioning er diagrams to a schema
+transitioning er diagrams to a schema
 strong entity sets just reduce to a schema with the same shit
 weak entity sets reduce to a table with a primary key for the strong identifying entity set
 many to many relationships is represented with attributes for the primary keys of the two participating entity sets in additon to the descriptive attributes
