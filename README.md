@@ -29,7 +29,7 @@ The following is taken from our course website, it describes the scope and requi
 
 Your database must, at a minimum, contain information about the following:
 
-* The are multiple theatre complexes in the city. Each theatre complex contains some number of theatres and has a name, address and a phone number. Each theatre in a theatre complex has a theatre number, a maximum number of seats and a screen size (small, medium or large).  You must have at least 3 theatre complexes represented in your project.
+* The are multiple theatre complexes in the city. Each theatre complex contains some number of theatres and has a name, address and a phone number. Each theatre in a theatre complex has a theatre number, a maximum number of seats and a screen size (small, medium or large). You must have at least 3 theatre complexes represented in your project.
 
 * Each current movie has a title, a running time, a rating (G, PG, AA, 14A, R, etc), a plot synopsis, a list of main actors, a director, a production company, the name of the supplier and the start and end dates for the movie's run at the theatre complex. The movie has one or more daily showings at the theatre complex specified by a start time. Each showing has the number of the theatre for the showing, the start time and the number of seats still available.
 
@@ -54,7 +54,7 @@ Members:
 * View their purchases
 * Cancel a purchase
 * Update their personal details -- ie. modify their profile
-* Browse their past rentals
+* Browse their past purchases
 * Add a review for a movie
 
 Administrators:
@@ -309,7 +309,6 @@ advantages:
 
 disadvantages:
 - extra insertion and deletion overhead, space overhead
-
 
 ## Contributing
 
