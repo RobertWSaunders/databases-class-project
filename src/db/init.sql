@@ -4,15 +4,20 @@ Group Number: 53
 March 28th, 2018
 */
 
+-- Drop the database
+DROP DATABASE omtsdb;
+
 -- Create the database
-CREATE DATABASE otmsdb;
+CREATE DATABASE omtsdb;
+
+-- Use the newly created database
+USE omtsdb;
 
 -- Table for theatre complexes
 CREATE TABLE theatre_complex (
-	id INTEGER NOT NULL,
+	id INTEGER NOT NULL AUTO_INCREMENT,
 	name varchar(50) NOT NULL,
 	phone_number varchar(30) NOT NULL,
-	a_number INTEGER NOT NULL,
 	a_street varchar(100) NOT NULL,
 	a_city varchar(100) NOT NULL,
 	a_postal_code varchar(7) NOT NULL,
@@ -22,7 +27,7 @@ CREATE TABLE theatre_complex (
 -- Table for theatres
 -- Belongs to a theatre complex
 CREATE TABLE theatre (
-	id INTEGER NOT NULL,
+	id INTEGER NOT NULL AUTO_INCREMENT,
 	theatre_num INTEGER NOT NULL,
 	max_seats INTEGER NOT NULL,
 	screen_size varchar(10) NOT NULL,
@@ -33,9 +38,8 @@ CREATE TABLE theatre (
 
 -- Table for a movie supplier
 CREATE TABLE supplier (
-	id INTEGER NOT NULL,
+	id INTEGER NOT NULL AUTO_INCREMENT,
 	name varchar(100) NOT NULL,
-	a_number INTEGER NOT NULL,
 	a_street varchar(100) NOT NULL,
 	a_city varchar(100) NOT NULL,
 	a_postal_code varchar(7) NOT NULL,
@@ -48,7 +52,7 @@ CREATE TABLE supplier (
 -- Table for movies
 -- Supplied from a supplier
 CREATE TABLE movie (
-	id INTEGER NOT NULL,
+	id INTEGER NOT NULL AUTO_INCREMENT,
 	title varchar(50) NOT NULL,
 	run_time TIME NOT NULL,
 	rating varchar(3) NOT NULL,
@@ -62,7 +66,7 @@ CREATE TABLE movie (
 
 -- Table for a movies run
 CREATE TABLE movie_run (
-	id INTEGER NOT NULL,
+	id INTEGER NOT NULL AUTO_INCREMENT,
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
 	movie_id INTEGER NOT NULL,
@@ -83,7 +87,7 @@ CREATE TABLE actor (
 
 -- Table for movie showing
 CREATE TABLE showing (
-	id INTEGER NOT NULL,
+	id INTEGER NOT NULL AUTO_INCREMENT,
 	seats_avail INTEGER NOT NULL,
 	start_time TIME NOT NULL,
 	start_date DATE NOT NULL,
@@ -96,10 +100,9 @@ CREATE TABLE showing (
 
 -- Table for customers
 CREATE TABLE customer (
-	account_num INTEGER NOT NULL,
+	account_num INTEGER NOT NULL AUTO_INCREMENT,
 	fname varchar(50) NOT NULL,
 	lname varchar(50) NOT NULL,
-	a_number INTEGER NOT NULL,
 	a_street varchar(100) NOT NULL,
 	a_city varchar(100) NOT NULL,
 	a_postal_code varchar(7) NOT NULL,
@@ -108,23 +111,25 @@ CREATE TABLE customer (
 	password varchar(30) NOT NULL,
 	cc_number varchar(30) NOT NULL,
 	cc_expiry varchar(10) NOT NULL,
-	isAdmin BOOLEAN NOT NULL,
-	PRIMARY KEY(account_num)
+	cc_cvc varchar(3) NOT NULL,
+	isAdmin BOOLEAN DEFAULT false,
+	PRIMARY KEY(account_num, email)
 );
 
 -- Table for customer movie reservations
 CREATE TABLE reservation (
+	reservation_id INTEGER NOT NULL AUTO_INCREMENT,
 	num_tickets INTEGER NOT NULL,
 	showing_id INTEGER NOT NULL,
 	customer_id INTEGER NOT NULL,
-	PRIMARY KEY (num_tickets),
+	PRIMARY KEY (reservation_id),
 	FOREIGN KEY (showing_id) REFERENCES showing(id),
 	FOREIGN KEY (customer_id) REFERENCES customer(account_num)
 );
 
 -- Table for custom movie reviews
 CREATE TABLE review (
-	id INTEGER NOT NULL,
+	id INTEGER NOT NULL AUTO_INCREMENT,
 	rating INTEGER NOT NULL,
 	description INTEGER NOT NULL,
 	customer_id INTEGER NOT NULL,
@@ -133,3 +138,30 @@ CREATE TABLE review (
 	FOREIGN KEY (customer_id) REFERENCES customer(account_num),
 	FOREIGN KEY (movie_id) REFERENCES movie(id)
 );
+
+-- Inserting some theatre complexes
+INSERT INTO theatre_complex VALUES
+(1, 'Silver City Toronto','123-456-789', '1200 Yonge St.', 'Toronto', 'A1B 2C3'),
+(2, 'Bloor Street Cinemas','123-456-789', '800 Bloor St.', 'Toronto', 'A1B 2C3'),
+(3, 'Yorkdale Malls Cinema','123-456-789', '12 Yorkdale St.', 'Toronto', 'A1B 2C3'),
+(4, 'The Beaches Odeon','123-456-789', '14 Beach St.', 'Toronto', 'A1B 2C3');
+
+-- Inserting some theatres for the complexes
+INSERT INTO theatre VALUES
+(1, 1, 50, 'Large', 1),
+(2, 2, 75, 'Large', 1),
+(3, 3, 50, 'Small', 1),
+(4, 4, 50, 'Medium', 1),
+(5, 1, 25, 'Small', 2),
+(6, 2, 50, 'Medium', 2),
+(7, 3, 100, 'Large', 2),
+(8, 4, 50, 'Medium', 2),
+(9, 1, 75, 'Large', 3),
+(10, 2, 50, 'Medium', 3),
+(11, 3, 50, 'Medium', 3),
+(12, 1, 200, 'Large', 4);
+
+-- Inserting some customers
+INSERT INTO customer VALUES
+(1, 'Robert', 'Saunders', '19 Whithall Rd.', 'Toronto', 'A1B 2C3', '123-456-789', 'robert@admin.com', '12345', '123456789', '1234', '123', true),
+(2, 'Robert', 'Saunders', '19 Whithall Rd.', 'Toronto', 'A1B 2C3', '123-456-789', 'robert@notadmin.com', '12345', '123456789', '1234', '123', false);
