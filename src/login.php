@@ -1,6 +1,10 @@
 <?php
 	session_start();
 
+	if (isset($_SESSION["authenticated"]) && $_SESSION["authenticated"] == true) {
+		header('location: index.php');
+	}
+
 	if (isset($_POST['submit'])) {
 
 		try {

@@ -55,7 +55,7 @@ CREATE TABLE movie (
 	id INTEGER NOT NULL AUTO_INCREMENT,
 	title varchar(50) NOT NULL,
 	run_time TIME NOT NULL,
-	rating varchar(3) NOT NULL,
+	rating varchar(10) NOT NULL,
 	plot_synopsis varchar(300) NOT NULL,
 	director varchar(50) NOT NULL,
 	producer varchar(50) NOT NULL,
@@ -145,7 +145,8 @@ INSERT INTO theatre_complex VALUES
 (1, 'Silver City Toronto','123-456-789', '1200 Yonge St.', 'Toronto', 'A1B 2C3'),
 (2, 'Bloor Street Cinemas','123-456-789', '800 Bloor St.', 'Toronto', 'A1B 2C3'),
 (3, 'Yorkdale Malls Cinema','123-456-789', '12 Yorkdale St.', 'Toronto', 'A1B 2C3'),
-(4, 'The Beaches Odeon','123-456-789', '14 Beach St.', 'Toronto', 'A1B 2C3');
+(4, 'The Beaches Odeon','123-456-789', '14 Beach St.', 'Toronto', 'A1B 2C3'),
+(5, 'Cineplex Cinema Yonge-Bloor', '123-456-789', '10 Dundas St. E', 'Toronto', 'A1B 2C3');
 
 -- Inserting some theatres for the complexes
 INSERT INTO theatre VALUES
@@ -160,7 +161,11 @@ INSERT INTO theatre VALUES
 (9, 1, 75, 'Large', 3),
 (10, 2, 50, 'Medium', 3),
 (11, 3, 50, 'Medium', 3),
-(12, 1, 200, 'Large', 4);
+(12, 1, 200, 'Large', 4),
+(13, 1, 75, 'Large', 5),
+(14, 2, 25, 'Small', 5),
+(15, 3, 150, 'Large', 5),
+(16, 4, 50, 'Medium', 5);
 
 -- Inserting some suppliers
 INSERT INTO supplier VALUES
@@ -169,12 +174,15 @@ INSERT INTO supplier VALUES
 (3, 'Teletoon', 'Queen St.', 'Toronto', 'A1B 2C3', 'Ryan', 'Cooper', '123-456-789');
 
 -- Inserting some movies
--- Inserting some movies
 INSERT INTO movie VALUES
-(1, 'The Prestige', 21039, 'R', 'After a trick goes wrong, two magicians have the feud of the century.', 'Christopher Nolan', 'Emma Thomas', 1, 'assets/img/prestige.png'),
-(2, 'Black Panther', 21453, 'PG', 'The Black Panther must fight for his country against a long lost enemy.', 'Ryan Coogler', 'Kevin Feige', 2, 'assets/img/panther.png'),
-(3, 'Pitch Perfect 3', 13314, 'PG', 'The gang gets back together for one final singing tour.', 'Trish Sie', 'Elizabeth Banks', 1, 'assets/img/perfect.png'),
-(4, 'Pacific Rim Uprising', 15147, 'R', 'The humans must once again use their giant robots to fight off enemy Precursors.', 'Steven S. DeKnight', 'John Boyega', 3, 'assets/img/uprising.png');
+(1, 'The Prestige', 21039, 'R', 'After a trick goes wrong, two magicians have the feud of the century.', 'Christopher Nolan', 'Emma Thomas', 1, 'assets/img/prestige.jpg'),
+(2, 'Black Panther', 21453, 'PG', 'The Black Panther must fight for his country against a long lost enemy.', 'Ryan Coogler', 'Kevin Feige', 2, 'assets/img/panther.jpg'),
+(3, 'Pitch Perfect 3', 13314, 'R', 'The gang gets back together for one final singing tour.', 'Trish Sie', 'Elizabeth Banks', 1, 'assets/img/perfect.jpg'),
+(4, 'Pacific Rim Uprising', 15147, 'PG', 'The humans must once again use their giant robots to fight off enemy Precursors.', 'Steven S. DeKnight', 'John Boyega', 3, 'assets/img/uprising.jpg'),
+(5, 'IT', 21557, 'R', 'Pennywise makes a horrifying return to the big screen in one of the best horror movies of the year.', 'Andy Muschietti', 'Roy Lee', 1, 'assets/img/it.jpg'),
+(6, 'Peter Rabbit', 13511, 'PG13', 'Peter and his furry friends go on a fun adventure through the neighbourhood.', 'Will Gluck', 'Zareh Nalbandian', 3, 'assets/img/rabbit.jpg'),
+(7, 'Tomb Raider', 15819, 'PG13', 'Watch Laura Crofts return to the big screen in this thrilling adventure.', 'Roar Uthaug', 'Graham King', 3, 'assets/img/tomb.jpg'),
+(8, 'Shape of Water', 20309, 'R', 'An unsuspecting love story between a mute human and humanoid amphibian.', 'Guillermo del Toro', 'J. Miles. Dale', 2, 'assets/img/water.jpg');
 
 -- Inserting some movie runs
 INSERT INTO movie_run VALUES
@@ -192,7 +200,11 @@ INSERT INTO actor VALUES
 ('Christian Bale', 1),
 ('Chadwich Bosman', 2),
 ('Anna Kendrick', 3),
-('Andy Serkis', 2);
+('Andy Serkis', 2),
+('Jaeden Lieberher', 5),
+('Rose Byrne', 6),
+('Alicia Vikander', 7),
+('Sally Hawkins', 8);
 
 -- Inserting some showings
 INSERT INTO showing VALUES
@@ -202,7 +214,13 @@ INSERT INTO showing VALUES
 (4, 9, 33000, 2018-04-29, 4, 3),
 (5, 4, 24500, 2018-04-13, 2, 5),
 (6, 41, 51500, 2018-05-22, 3, 8),
-(7, 108, 40000, 2018-04-27, 4, 12);
+(7, 108, 40000, 2018-04-27, 4, 12),
+(8, 20, 73000, 2018-05-02, 5, 10),
+(9, 2, 110000, 2018-03-29, 8, 2),
+(10, 31, 53000, 2018-06-02, 6, 4),
+(11, 17, 21500, 2018-05-02, 5, 6),
+(12, 49, 123000, 2018-04-02, 7, 9),
+(13, 15, 80000, 2018-04-29, 8, 5);
 
 -- Inserting some customers
 INSERT INTO customer VALUES

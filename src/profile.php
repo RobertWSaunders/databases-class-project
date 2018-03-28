@@ -1,6 +1,10 @@
 <?php
 	session_start();
 
+	if (!isset($_SESSION["authenticated"])) {
+		header('location: login.php');
+	}
+
 	try {
 		require "config.php";
 		require "common.php";
@@ -27,17 +31,34 @@
 
 	if (isset($_POST['submit'])) {
 
-		$sql = "UPDATE customer SET fname=:fname, lname=:lname, email=:email WHERE account_num=:accountNum";
+		$sql = "UPDATE customer SET fname=:fname, lname=:lname, email=:email, a_street=:a_street, a_city=:a_city, a_postal_code=:a_postal_code, phone_number=:phone_number, password=:password, cc_number=:cc_number, cc_expiry=:cc_expiry, cc_cvc=:cc_cvc WHERE account_num=:accountNum";
 
 		$email = $_POST['email'];
 		$fname = $_POST['firstName'];
 		$lname = $_POST['lastName'];
+		$a_street = $_POST['street'];
+		$a_city = $_POST['city'];
+		$a_postal_code = $_POST['pc'];
+		$phone_number = $_POST['phoneNumber'];
+		$password = $_POST['password'];
+		$cc_number = $_POST['creditCardNumber'];
+		$cc_expiry = $_POST['creditCardExpiry'];
+		$cc_cvc = $_POST['creditCardCVC'];
+
 		$accountNum = $_SESSION['accountNum'];
 
 		$smt = $connection->prepare($sql);
 		$smt->bindParam(':email', $email, PDO::PARAM_STR);
 		$smt->bindParam(':fname', $fname, PDO::PARAM_STR);
 		$smt->bindParam(':lname', $lname, PDO::PARAM_STR);
+		$smt->bindParam(':a_street', $a_street, PDO::PARAM_STR);
+		$smt->bindParam(':a_city', $a_city, PDO::PARAM_STR);
+		$smt->bindParam(':a_postal_code', $a_postal_code, PDO::PARAM_STR);
+		$smt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
+		$smt->bindParam(':password', $password, PDO::PARAM_STR);
+		$smt->bindParam(':cc_number', $cc_number, PDO::PARAM_STR);
+		$smt->bindParam(':cc_expiry', $cc_expiry, PDO::PARAM_STR);
+		$smt->bindParam(':cc_cvc', $cc_cvc, PDO::PARAM_STR);
 		$smt->bindParam(':accountNum', $accountNum, PDO::PARAM_STR);
 		$smt->execute();
 

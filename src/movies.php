@@ -4,6 +4,10 @@
 	if (!isset($_SESSION["authenticated"])) {
 		header('location: login.php');
 	}
+
+	if (isset($_POST['submit'])) {
+		header('location: movie.php');
+	}
 ?>
 
 <?php include 'templates/header.php' ?>
@@ -71,38 +75,41 @@
 
 					$res = $smt->fetchAll();
 
-					if($res && $smt->rowCount() == 0) {
+					if(!$res || $smt->rowCount() == 0) {
 						echo '<div class="alert alert-danger" role="alert">No movies currently playing at this theatre complex!</div>';
 					} else {
 						foreach ($res as $row) {
-						echo'
-							<div class="media" style="margin-top: 40px;">
-								<div class="media-left">
-									<a href="#">
-										<img class="media-object" src="assets/img/favicon.ico" alt="">
-									</a>
+							echo'
+								<div class="media" style="margin-top: 40px; margin-top: 40px; margin-bottom: 40px;">
+									<div class="media-left">
+										<a href="#">
+											<img class="media-object" src="'.$row[8].'" alt="">
+										</a>
+									</div>
+									<div class="media-body" style="margin-left: 10px;">
+										<h4 class="media-heading">'.$row[1].'</h4>
+										<b>Rating: </b>'.$row[3].'
+										<br />
+										<b>Director: </b>'.$row[5].'
+										<br />
+										<b>Producer: </b>'.$row[6].'
+										<br />
+										<b>Run Time: </b>'.$row[2].'
+										<br />
+										<br />
+										<p>
+											'.$row[4].'
+										</p>
+										<form action="movies.php" method="post">
+											<button type="submit" class="btn btn-primary" value="showtimes">View Showtimes</button>
+											<button type="submit" class="btn btn-primary" value="showtimes">Review</button>
+										</form>
+									</div>
 								</div>
-								<div class="media-body">
-									<h4 class="media-heading">'.$row[1].'</h4>
-									<b>Rating: </b>'.$row[3].'
-									<br />
-									<b>Director: </b>'.$row[5].'
-									<br />
-									<b>Producer: </b>'.$row[6].'
-									<br />
-									<b>Run Time: </b>'.$row[2].'
-									<br />
-									<br />
-									<p>
-										'.$row[4].'
-									</p>
-									<button type="button" class="btn btn-primary">View Showtimes</button>
-								</div>
-							</div>
-							';
+								';
 						}
 					}
-				} else {
+				} elseif ($_GET['complex_select'] == -1) {
 					echo '<div class="alert alert-danger" role="alert">Please select a valid theatre complex!</div>';
 				}
 		?>
