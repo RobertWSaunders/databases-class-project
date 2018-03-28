@@ -37,13 +37,28 @@
 		$statement = $connection->prepare($sql);
 		$statement->execute($new_user);
 
+		$sql = "SELECT *
+			FROM customer
+			WHERE email = :email";
+
+		$email = $_POST['email'];
+
+		$smt = $connection->prepare($sql);
+		$smt->bindParam(':email', $email, PDO::PARAM_STR);
+		$smt->execute();
+
+		$result = $smt->fetch();
+
 		if (isset($_POST['submit']) && $statement) {
 			$_SESSION['authenticated'] = true;
-			$_SESSION['isAdmin'] = $row['isAdmin'];
+			$_SESSION['isAdmin'] = $result[7];
+			$_SESSION['accountNum'] = $result[0];
 			header("location: index.php");
 		} else {
 			$error = "For some reason we could not create your account!";
 		}
+
+		$connection = null;
 	}
 ?>
 

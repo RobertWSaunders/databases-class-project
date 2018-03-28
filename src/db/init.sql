@@ -60,6 +60,7 @@ CREATE TABLE movie (
 	director varchar(50) NOT NULL,
 	producer varchar(50) NOT NULL,
 	supplier_id INTEGER NOT NULL,
+	image varchar(100),
 	PRIMARY KEY (id),
 	FOREIGN KEY (supplier_id) REFERENCES supplier(id)
 );
@@ -161,7 +162,82 @@ INSERT INTO theatre VALUES
 (11, 3, 50, 'Medium', 3),
 (12, 1, 200, 'Large', 4);
 
+-- Inserting some suppliers
+INSERT INTO supplier VALUES
+(1, 'Warner Bros.', 'Bay St.', 'Toronto', 'A1B 2C3', 'John', 'Smith', '123-456-789'),
+(2, 'Entertainment One', 'Yonge St.', 'Toronto', 'A1B 2C3', 'Jane', 'Doe', '123-456-789'),
+(3, 'Teletoon', 'Queen St.', 'Toronto', 'A1B 2C3', 'Ryan', 'Cooper', '123-456-789');
+
+-- Inserting some movies
+-- Inserting some movies
+INSERT INTO movie VALUES
+(1, 'The Prestige', 21039, 'R', 'After a trick goes wrong, two magicians have the feud of the century.', 'Christopher Nolan', 'Emma Thomas', 1, 'assets/img/prestige.png'),
+(2, 'Black Panther', 21453, 'PG', 'The Black Panther must fight for his country against a long lost enemy.', 'Ryan Coogler', 'Kevin Feige', 2, 'assets/img/panther.png'),
+(3, 'Pitch Perfect 3', 13314, 'PG', 'The gang gets back together for one final singing tour.', 'Trish Sie', 'Elizabeth Banks', 1, 'assets/img/perfect.png'),
+(4, 'Pacific Rim Uprising', 15147, 'R', 'The humans must once again use their giant robots to fight off enemy Precursors.', 'Steven S. DeKnight', 'John Boyega', 3, 'assets/img/uprising.png');
+
+-- Inserting some movie runs
+INSERT INTO movie_run VALUES
+(1, 2018-02-16, 2018-04-18, 2, 1),
+(2, 2018-03-15, 2018-05-27, 4, 2),
+(3, 2017-12-21, 2018-04-07, 3, 4),
+(4, 2018-01-12, 2018-04-01, 1, 3),
+(5, 2018-02-16, 2018-04-18, 2, 2),
+(6, 2018-03-15, 2018-05-27, 4, 1);
+
+-- Inserting some actors
+INSERT INTO actor VALUES
+('John Boyega', 4),
+('Hugh Jackman', 1),
+('Christian Bale', 1),
+('Chadwich Bosman', 2),
+('Anna Kendrick', 3),
+('Andy Serkis', 2);
+
+-- Inserting some showings
+INSERT INTO showing VALUES
+(1, 10, 20000, 2018-05-02, 1, 5),
+(2, 33, 80000, 2018-04-01, 2, 11),
+(3, 19, 120000, 2018-05-12, 3, 1),
+(4, 9, 33000, 2018-04-29, 4, 3),
+(5, 4, 24500, 2018-04-13, 2, 5),
+(6, 41, 51500, 2018-05-22, 3, 8),
+(7, 108, 40000, 2018-04-27, 4, 12);
+
 -- Inserting some customers
 INSERT INTO customer VALUES
-(1, 'Robert', 'Saunders', '19 Whithall Rd.', 'Toronto', 'A1B 2C3', '123-456-789', 'robert@admin.com', '12345', '123456789', '1234', '123', true),
-(2, 'Robert', 'Saunders', '19 Whithall Rd.', 'Toronto', 'A1B 2C3', '123-456-789', 'robert@notadmin.com', '12345', '123456789', '1234', '123', false);
+(1, 'John', 'Dale', 'Avenue Rd.', 'Toronto', 'A1B 2C3', '123-456-789', 'jdale@rogers.com', 'moviefan', '5483-3912-4921-0819', '08/20','456', false),
+(2, 'Jane', 'Steel', 'Yonge St.', 'Toronto', 'A1B 2C3', '123-456-789', 'jsteel@gmail.com', 'movieguy', '7356-1475-8416-1783', '04/19', '127', true),
+(3, 'Emma', 'Johnson', 'Duffrin Ave.', 'Toronto', 'A1B 2C3', '123-456-789', 'ejohnson@yahoo.ca', 'ilikemovies', '7823-9463-1689-1635', '11/21', '724', false),
+(4, 'Matthew', 'Brown', 'Avenue Rd.', 'Toronto', 'A1B 2C3', '123-456-789', 'mbrown@rogers.com', 'fanofmovies', '5425-1948-4612-5223', '10/18', '522', false),
+(5, 'Becky', 'Davis', 'King St. W.', 'Toronto', 'A1B 2C3', '123-456-789', 'bdavis@gmail.com', 'password', '8934-2436-3547-8456', '07/19', '736', false),
+(6, 'Jared', 'Miller', 'Lawrence Ave.', 'Toronto', 'A1B 2C3', '123-456-789', 'jmiller@rogers.com', 'dogsname', '2034-7456-8375-1648', '09/19', '536', true),
+(7, 'Robert', 'Saunders', '19 Whithall Rd.', 'Toronto', 'A1B 2C3', '123-456-789', 'robert@admin.com', '12345', '123456789', '1234', '123', true),
+(8, 'Robert', 'Saunders', '19 Whithall Rd.', 'Toronto', 'A1B 2C3', '123-456-789', 'robert@notadmin.com', '12345', '123456789', '1234', '123', false);
+
+-- Inserting some reservations
+INSERT INTO reservation VALUES
+(1, 3, 7, 1),
+(2, 1, 1, 4),
+(3, 4, 4, 3),
+(4, 1, 5, 4),
+(5, 2, 2, 5),
+(6, 10, 7, 3),
+(7, 1, 6, 1),
+(8, 3, 3, 3),
+(9, 2, 1, 5);
+
+-- Inserting some movie reviews
+INSERT INTO review VALUES
+(1, 91, 'Very cool, great acting, insane twist ending.', 1, 1),
+(2, 87, 'Awesome effects with a very powerful message.', 1, 2),
+(3, 42, 'Very dissapointing compared to the first 2, was expecting more.', 3, 3),
+(4, 65, 'Great action scenes, a good, mind numbing movie.', 4, 4),
+(5, 22, 'Not a huge fan, was forced to go watch with my family.', 4, 3),
+(6, 86, 'Really interesting, I love movies from this time period.', 3, 1),
+(7, 30, 'Seemed pretty pointless with no real plot, just giants fighting.', 5, 4),
+(8, 92, 'Incredible movie with an amazing cast, very excited for the sequel.', 3, 2),
+(9, 89, 'Awesome film, best action in a movie in a long time.', 4, 2),
+(10, 40, 'Great singing but lacking compared to the first two, some of my favourite movies ever.', 5, 3),
+(11, 50, 'Not as good as the first but still alright, decent acting.', 1, 4),
+(12, 70, 'Was okay, I didnt really understand the ending though.', 5, 1);
