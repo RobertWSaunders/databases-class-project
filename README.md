@@ -1,6 +1,6 @@
 # databases-class-project
 
-This is where our CMPE 332 (Database Management Systems) course project lives! This project is intended to give students an opportunity to participate in all phases of the development of a database application. The development of the application will require you to use ER modeling techniques, relational modeling techniques, SQL, and to access your database via a web application.
+This is where our CMPE 332 (Database Management Systems) course project lives! This project is intended to give students an opportunity to participate in all phases of the development of a database application. The development of the application will requires us to use ER modeling techniques, relational modeling techniques, SQL, and to access your database via a web application.
 
 ## Contents
 
@@ -20,6 +20,18 @@ This is where our CMPE 332 (Database Management Systems) course project lives! T
 - [License](#license)
 
 ## Usage
+
+To use the project on your own machine:
+
+1. Clone the project:
+
+	`git clone [url]`
+
+2. Run an Apache server (serves files) and a MySQL instance (our database).
+
+3. Create and setup the database by running `db/init.sql` or by navigating to `/db/install.php` from within your browser (assuming Apache server is running).
+
+4. Enjoy the movie!
 
 ## Project Requirements
 
@@ -74,43 +86,60 @@ These requirements are a minimum.  You may find that you need to add additional 
 
 Below you can see the entity relationship diagram we designed to fulfill the above requirements:
 
-Relationship sets
-relationship participation constraints
-descriptive attributes
-multivalued attributes
-derived attribute
-simple and composite attributes
-cardinality constraints
-- one to one
-- one to many
-- many to one
-- many to many
+![OTMS ER Diagram](https://github.com/RobertWSaunders/databases-class-project/blob/master/src/assets/img/ERDiagram.png)
 
-directed line is one
-undirected line signifies many
-participation constraints
+A couple of notes to help read that ER diagram:
 
-weak entity sets, have discriminating attributes
-specialization vs generalization
-disjoint specialization (can only belong to one lower entity set)
-overlapping specialization (can belong to more than one lower entity set)
-
-completeness constraint (whether or not a higher level entity needs to belong to one of the lower level entity sets)
-total and partial completeness
+- Directed line signifies one.
+- Undirected line signifies many.
+- Attributes with curly brackets are multivalued.
+- Attributes spawning from relationships are descriptive attributes.
+- Indented attributes are composite attributes.
+- Top level attributes are simple attributes.
+- Double line indicates total participation.
+- Single line indicate partial participation.
+- Identifying relationship is depicted using a double diamond.
+- Underlined attributes in strong entity sets are the primary keys.
+- Underlined attributes in weak entity sets are the discriminators (partial keys).
+- Disjoint specialization is depicted via two lower level entities linked at the triangle.
+- Overlapping specialization is depicted via unlinked entities linked at the triangle.
+- The written "total" by specialization indicates total completeness (an entity must belong to lower level).
 
 ## Course Notes
 
+The following is course notes from the various sections of the course we studied.
+
+> NOTE: Please use at your own risk, they encapsulate everything that I personally needed to write down.
+
 ### Data Definition Language
 
-both flavours of sql
-transitioning er diagrams to a schema
-strong entity sets just reduce to a schema with the same shit
-weak entity sets reduce to a table with a primary key for the strong identifying entity set
-many to many relationships is represented with attributes for the primary keys of the two participating entity sets in additon to the descriptive attributes
-one to many relationships that are total just add the primary key of the one side
-one to one relationships either side can have the primary key, have to watch out for null values in this, partial participation
-schema for weak relationships are redundant because the weak entity set already contains the keys of the identifying set
-multi valued attributes have a foreign key to their table and an attribute for the value
+Data definition language allows the specification of information about relations, including:
+
+- The schema for each relation.
+- The domain of each attribute.
+- Integrity constraints.
+- Other information such as:
+	- The set of indices to be maintained for each relations.
+	- Security and authorization information for each relation.
+	- The physical storage structure of each relation on disk.
+
+> NOTE: Data definition language is just a subset of SQL constructs, specifically the database and table creation constructs. The other subset of constructs is the data manipulation language discussed below.
+
+#### Transitioning ER Diagrams to Schema
+
+A common first task after creating an ER diagram is to convert it into DDL to actually create the database. To do that we have to follow some rules specifically pertaining to the cardinality constraints defined in the ER diagram. Follow the rules below:
+
+- Strong entity sets reduce to a schema with all the same attributes.
+- Weak entity sets have all of their attributes but also include the primary key of the strong identifying set.
+
+- One to one relationships, the primary key of either entity in the relationship is included in one of the entities.
+- One to many relationships, the primary key of the one side is added to the many side.
+- Many to many relationships, the primary keys of both sides are added to a new table in addition to any descriptive attributes.
+
+- Simple, composite and derived attributes are just added into entities as themselves.
+- Multivalued attributes a new table is created for the attribute with a foreign key for the related entity.
+
+Following those rules you are able to create a schema for an ER diagram.
 
 ### Data Manipulation Language
 

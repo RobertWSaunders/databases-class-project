@@ -50,7 +50,7 @@ CREATE TABLE supplier (
 );
 
 -- Table for movies
--- Supplied from a supplier
+-- Belongs to a supplier
 CREATE TABLE movie (
 	id INTEGER NOT NULL AUTO_INCREMENT,
 	title varchar(50) NOT NULL,
@@ -66,6 +66,7 @@ CREATE TABLE movie (
 );
 
 -- Table for a movies run
+-- Belongs to a movie and theatre complex
 CREATE TABLE movie_run (
 	id INTEGER NOT NULL AUTO_INCREMENT,
 	start_date DATE NOT NULL,
@@ -78,7 +79,7 @@ CREATE TABLE movie_run (
 );
 
 -- Table for actors
--- Belong to a movie
+-- Belongs to a movie
 CREATE TABLE actor (
 	name varchar(50) NOT NULL,
 	movie_id INTEGER NOT NULL,
@@ -130,12 +131,12 @@ CREATE TABLE reservation (
 
 -- Table for custom movie reviews
 CREATE TABLE review (
-	id INTEGER NOT NULL AUTO_INCREMENT,
+	review_id INTEGER NOT NULL AUTO_INCREMENT,
 	rating INTEGER NOT NULL,
 	description INTEGER NOT NULL,
 	customer_id INTEGER NOT NULL,
 	movie_id INTEGER NOT NULL,
-	PRIMARY KEY (id, rating, description),
+	PRIMARY KEY (review_id),
 	FOREIGN KEY (customer_id) REFERENCES customer(account_num),
 	FOREIGN KEY (movie_id) REFERENCES movie(id)
 );
