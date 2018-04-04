@@ -278,37 +278,18 @@ How do we prevent SQL injections:
 
 ### Storage
 
-physical storage
-classification criteria for storage media
-- speed
-- cost
-- reliability
-	- volatile storage
-	- non volatile storage
+Of course a database needs to be stored somewhere. A couple of classification criteria we have to think about are speed, cost and reliability (volatile storage and non volatile storage). There is a storage hierarchy we need to be aware of as well, in order of price with the first being the most expensive we can see:
 
-data is store on magnetic disk and read into main memory when requested, written back to the disk when contents are modified
+- Cache
+- Main Memory
+- Flash Memory
+- Magnetic Disk
+- Optical Disk
+- Magnetic Disk
 
-time to access a disk block:
-seek time + rotational delay + transfer time
-key to lower I/O cost is to reduce seek time and rotational delay
+For database systems data is stored on magnetic disk and read into memory when requested and is then written back to disk when contents are modified. To access the disk there is a seek time, rotational delay and transfer time that all make up the time required to access/write to the disk. The key to a fast I/O is to reduce the seek and rotational delays. We can do a couple of things to do that, such as using blocks. A block is a contiguous sequence of sectors from a single track. Therefore data is transferred between disk and main memory in blocks. Another technique is to improve file organization, we can optimize block access time by organizing the pages to correspond to how data will be accessed. So things like storing related information together on the same or nearby cylinders. Or disk arm scheduling, which are algorithms that order pending accesses to tracks so that disk arm movement is minimized. We reduce the number of disk accesses by keeping as many blocks as possible in main memory, we call that space in main memory the buffer. To accompany the buffer there is a buffer manager that is responsible for allocating buffer space in main memory. Some considerations the bugger manager takes into account are:
 
-optimizing disk access
-- blocks (contiguous sequence of sectors from a single track)
-
-file organization
-- optimize block access time by organizing the pages to correspond to how data will be accessed (store related information together on the same or nearby cylinders)
-- disk arm scheduling
-
-database file is partitioned into fixed length blocks
-tries to keep blocks in main memory, wants to minimize block transfers
-
-buffer
-portion of main memory available to store copies of disk blocks
-
-buffer manager
-subsystem responsible for allocating buffer space in main memory
-programs call on the buffer manager when they need a block from disk
-- if the block is already in the buffer, buffer manager returns the address of the block in main memory
+- if the block is already in the buffer, the buffer manager returns the address of the block in main memory.
 - if the block is not in the buffer, the buffer manager
 	- allocates space in the buffer for the block
 		1. replacing (throwing out) some other block, if required
