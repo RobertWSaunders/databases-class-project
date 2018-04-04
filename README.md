@@ -144,46 +144,68 @@ Following those rules you are able to create a schema for an ER diagram.
 
 Data manipulation language is the other subset of constructs in SQL that allow you to manipulate data. It must noted that both DDL and DML are case insensitive when writing queries etc.
 
-case insensitive
-select query lists attributes desired in the result of a query
-insert distinct to remove duplicates from query result
-* is all attributes
-select clause can contain arithmetic expressions
-where clause specifies conditions that the result must satisfy
-where clauses can be combined using logical connectives and, or and not
-from clause lists the relations involved in the query
-can use the dot syntax if the columns are the same name
-natural join matches tuples with same values for all common attributes and retains only one copy of each common column
-as clause allows renaming of attributes and relations, the keyword can be ommitted
-order by clause can be used to sort the display of tuples
-you can also perform set operations, union for example
-can also perform nested queries, using the in (not for difference) clause
-aggregate functions are available on attributes (columns)
-- avg
-- min
-- max
-- sum
-- count
-- group by
-- having
-can have set comparisons
-- some
-- all
-integrity contraints
-- not NULL
-- check(P), p is a predicate
-referential integrity
-- cascading actions in referential integrity
-- set null
-manipulating data
-- delete from operation
-- insertion (insert into)
-- updates (update ...)
-Views
-- hide certain data from the view of certain users
-- use "create view v as ..."
-- its like a placeholder/stub
-- improves reusability
+There are a few important DML clauses that I will touch on below:
+
+- The *select* clause, this lists the desired attributes in the result of a query.
+
+	`SELECT * FROM [tablename]`
+
+ > NOTE: SQL allows duplicates in relations as well as in query results. To force the elimination of duplicates you can use the distinct keyword after select in your query.
+
+- The *where* clause specifies the conditions that the result must satisfy.
+
+	`SELECT * FROM [tablename] WHERE salary > 25000`
+
+- The *from* clause lists the relations involved in the query.
+
+	`SELECT * FROM employee`
+
+- Natural join matches tuples with the same values for all common attributes and retains only one copy of each common column.
+
+Additional operations include:
+
+- Rename operation (as)
+- Ordering operation (order by)
+- Set operations (union)
+- Nested queries
+- Difference operation (not)
+- Aggregate Functions
+	- avg: average value
+	- min: minimum value
+	- max: maximum value
+	- sum: sum of values
+	- count: number of values
+- Having clause (having)
+- Set comparisons (some, all)
+
+Integrity constraints guard against accidental damage to the database by ensuring that authorized changes to the database do not result in a loss of data consistency. A couple of these integrity constraints include:
+
+- NOT NULL
+
+	- Checks if a value is null or not and if it is the database will not allow it.
+
+
+- CHECK(P)
+
+	- Where P is a predicate, it checks to satisfy the given predicate.
+
+
+- Referential Integrity
+
+	- Ensures that a value that appears in one relation for a given set of attributes also appears for a certain set of attributes in another relation. Using referential integrity you can perform cascading actions such as `on delete`. `on update`, `set null`, `set default`.
+
+There are lots of ways you can manipulate data as well, see some of those ways below:
+
+- `delete from`
+- `insert into`
+- `update set`
+
+In some cases it isn't desirable for all users to see the entire logical model (that is, all the actual relations store in the database). A *view* is a mechanism to hide certain data from the view of certain users. Any relation that is note of the conceptual model but is made visible to a user as a "virtual relation" is called a view. You can define a view using `create view [viewname] as [expression]`. A view is very much like a stub. We can use views in our queries as if they were tables. MySQL implementations allow updates only on simple views. The rules for updating a view are as follows:
+
+- The *from* clause has only one database relation.
+- The *select* clause contains only attribute names of the relation and does not have any expressions, aggregates or *distinct* specifications.
+- Any attribute not list in the *select* clause can be set to null.
+- The query does not have a *group by* pr *having* clause.
 
 ### Security
 
