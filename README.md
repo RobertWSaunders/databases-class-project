@@ -209,40 +209,70 @@ In some cases it isn't desirable for all users to see the entire logical model (
 
 ### Security
 
+Security is a top concern when thinking about databases. The way we protect databases are using the following techniques:
+
 - user authentication
 - data encryption
 - access control
 - firewall policies
 - intrusion detection
 
-privacy is the ability for individuals to control the terms under which their personal information is aquired and used
+What is privacy? Privacy is the ability for individuals to control the terms under which their personal information is acquired and used. When looking at the threats to a database there are many:
 
-threats
 - loss of integrity
+
+	- Meaning the accuracy of the stored data.
+	- Data must be protected from improper modification.
+
 - loss of availability
+
+	- Data objects must be available to users/programs that have a legitimate right to those objects.
+
 - loss of confidentiality
 
-DBA (admin)
-- responsible for the overall security of the database system
+	- Data must be protect from unauthorized disclosure.
 
-access control models
-- discretionary access control (dac)
-	- owner just decides
-- mandatory access control (mac)
-	- determined by a central authrority to given set of policies
-- role based access control (rbac)
-	- instance of mac scheme, roles created for various job functions
+For ever database there is a database administrator (DBA) who is the central authority for managing a database system. The DBA is responsible for the overall security of the database system. Within a DBMS there is an authorization subsystem that is responsible for ensuring the database against unauthorized access. So examples are a user can be assigned an account id and password by the DBA. Or a more sophisticated access control mechanism to manage access to the data by the users. The access control models are outlined below:
 
-grant statement used to author authorization
-not on specific tuples
-revoke is counterpart to grant
-grant option for propagation of privileges
-can use views to limit users tuple access
-commonly used model for multilevel security is Bell-LaPadula, this classifies each subject and object into one of several security classes, simple security property, star property
-create role and destroy role
-role can be granted to users as well as other roles
-privileges are associated with roles
-protecting against sql injections
+- Discretionary Access Control (DAC)
+
+	- Owner just decides who has access to an object and what privileges they have.
+	- Owner can grant and revoke privileges on a data object.
+
+- Mandatory Access Control (MAC)
+
+	- Access to objects is determined by a central authority to a given set of policies.
+	- Typically used for high security data, e.g. MLS DBMS
+
+- Role Based Access Control (RBAC)
+
+	- Instance of MAC scheme, roles created for various job functions.
+	- Permissions are assigned to roles and users to one or more roles.
+
+Access control can be done in SQL, using the commands below:
+
+- The *grant* statement is used to confer authorization.
+
+	`grant [privilege list] on [relation name or view name] to [user list]`
+
+	> NOTE: Granting privilege on a view does not imply granting any privileges on the underlying relations.
+
+- The *revoke* statement is used to revoke authorization.
+
+There are many privileges in SQL, to summarize see them below:
+
+- select
+- insert
+- update
+- delete
+- all privileges
+
+Privileges can be propagated using the *grant option*.
+
+You can use views to restrict users to specific tuples, just create a view that retrieves one tuple and then set the users privileges on that specific view pretty neat. Many applications require an additional security policy that classifies data and users base on security classes. This is typically achieved by combining DAC and MAC access control schemes. The commonly used model for multilevel security is known as the Bell-LaPaula model, which classifies subject and objects into several security classes. We can create roles using the commands `create role` and `destroy role`.
+
+How do we prevent SQL injections:
+
 - prepared statements
 - restricted access control
 
