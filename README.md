@@ -45,27 +45,26 @@ Your database must, at a minimum, contain information about the following:
 
 * Each current movie has a title, a running time, a rating (G, PG, AA, 14A, R, etc), a plot synopsis, a list of main actors, a director, a production company, the name of the supplier and the start and end dates for the movie's run at the theatre complex. The movie has one or more daily showings at the theatre complex specified by a start time. Each showing has the number of the theatre for the showing, the start time and the number of seats still available.
 
-* A movie supplier has a company name, a company address, a phone number and the name of the contact person at the company.
-Movie information remains in the database even if the movie is no longer playing at any theatres.
+* A movie supplier has a company name, a company address, a phone number and the name of the contact person at the company. Movie information remains in the database even if the movie is no longer playing at any theatres.
 
-* Each OMTS customer must register with the service.  Once they have done so, they use the account number and password created to conduct transactions with the service. Each customer has a name, address, phone number, email address, account number, password, credit card number and credit card expiry date.
+* Each OMTS customer must register with the service. Once they have done so, they use the account number and password created to conduct transactions with the service. Each customer has a name, address, phone number, email address, account number, password, credit card number and credit card expiry date.
 
-* Customers make reservations with the service (ie. they purchase movie tickets).   Each reservation contains an account number, a showing, the number of tickets reserved. Assume that reservation records will be retained in the database for later analysis of customer movie viewing patterns.
+* Customers make reservations with the service (ie. they purchase movie tickets). Each reservation contains an account number, a showing, the number of tickets reserved. Assume that reservation records will be retained in the database for later analysis of customer movie viewing patterns.
 
 * Customer reviews for movies.
 
 ### Functional Requirements
 
-The OMTS application needs to support two categories of functions - one for members and one for administrators.
+The OMTS application needs to support two categories of functions, one for members and one for administrators.
 
 Members:
 
-* Make an account including a login id and password
+* Make an account including a login email and password
 * Browse movies playing at the various theatre complexes
 * Purchase some number of tickets for one or more movies showing at one or more theatres
 * View their purchases
 * Cancel a purchase
-* Update their personal details -- ie. modify their profile
+* Update their personal details
 * Browse their past purchases
 * Add a review for a movie
 
@@ -77,10 +76,10 @@ Administrators:
 * Add movies to the database
 * Update where/when movies are showing
 * For a particular customer, show their rental history (including current tickets held)
-* Find the movie that is the most popular (ie. has sold the * most tickets across all theatres)
-* Find the theatre complex that is most popular (ie. has * sold the most tickets across all movies)
+* Find the movie that is the most popular (i.e. has sold the most tickets across all theatres)
+* Find the theatre complex that is most popular (i.e. has sold the most tickets across all movies)
 
-These requirements are a minimum.  You may find that you need to add additional data and or functionality to make your application realistic, or to demonstrate that it works.
+These requirements are a minimum. You may find that you need to add additional data and or functionality to make your application realistic, or to demonstrate that it works.
 
 ## Entity Relationship Diagram
 
@@ -134,7 +133,7 @@ A common first task after creating an ER diagram is to convert it into DDL to ac
 
 - One to one relationships, the primary key of either entity in the relationship is included in one of the entities.
 - One to many relationships, the primary key of the one side is added to the many side.
-- Many to many relationships, the primary keys of both sides are added to a new table in addition to any descriptive attributes.
+- Many to many relationships, the primary keys of both sides are added to a new table.
 
 - Simple, composite and derived attributes are just added into entities as themselves.
 - Multivalued attributes a new table is created for the attribute with a foreign key for the related entity.
@@ -142,6 +141,8 @@ A common first task after creating an ER diagram is to convert it into DDL to ac
 Following those rules you are able to create a schema for an ER diagram.
 
 ### Data Manipulation Language
+
+Data manipulation language is the other subset of constructs in SQL that allow you to manipulate data. It must noted that both DDL and DML are case insensitive when writing queries etc.
 
 case insensitive
 select query lists attributes desired in the result of a query
