@@ -298,46 +298,52 @@ For database systems data is stored on magnetic disk and read into memory when r
 
 ### File Organization
 
-file of records
-- each relation is typically stored as a file
-- stored as a sequence of records (tuples) mapped onto disk blocks
-- file organization is a method of arranging records in a file
+As mentioned above, we can improve the performance of our database by improving the file organization. Each relation is typically stored as a file and within those files are records that indicate tuples. We say that file organization is a method of arranging records in a file. We represent records in a file in two ways, fixed length records and variable length records, the assumption is that a record is not larger than a block.
 
-represented within the file in two scenarios
-- fixed length records
-- variable length records
+For fixed length records we use something called free lists to track deleted records. Variable length records are record types that allow variable lengths for one or more fields such as strings (varchar) result in records that are of different lengths. In variable length records we store attributes in order and variable length attributes are represented by fixed size (offset and length), with actual data stored after all fixed length attributes. Null values are represented by null-value bitmap. Sometimes in these files we choose a slotted page structure which includes a header in the file that contains:
 
-free lists are used to track deleted records
+- number of record entries
+- end of free space in the block
+- location and size of each record
 
-record types that allow variable lengths for one or more fields such as strings (varchar) result in records in records that are different lengths
+Records can be moved around within a page to keep them contiguous with no empty space between them; entry in the header must be updated.
 
-slotted page header/structure
+Now lets look at the options for organizing the records in a file, versus just purely representing them. There are two options outlined below:
 
-organizing records within a file
-- stored in a heap (no ordering really)
-- sequential ordering based on search key
-	- uses overflow block with pointers to keep track
-	- if there are a lot of overflow blocks that hurts performance
-	- we reorganize the file from time to time to restore the sequential order
+- Heap
+
+	- A record can be placed anywhere in the file where there is space.
+		- no ordering of records
+		- single file for each of the records
+
+- Sequentially
+
+	- Store records in sequential order, based on the value of the search key of each record.
+		- Designed for efficient processing of records in sorted order.
+		- For insertions we location the position where the record is to be inserted.
+			- if there is free space we insert it
+			- if there is no free space we insert the record in an overflow block.
+			- in either of these cases the pointer chain must be updated.
+			- We need to reorganize the file from time to time to restore sequential order.
 
 ### Indexing
 
-indices
-- objective is to provide quick access to commonly access items
-very similar to commonly accessed items
-- often there are several indices that are created
-- indices are stored as separate files, need to be updated whenever changes are made to a table, this adds overhead
+Indices provide quick access to commonly accessed items. Very similar to an index in a book. Often times there are several indices that are created on a single table. Indices are stored as separate files, as a result of this they need to be updated whenever changes are made to a table.
 
-basics
-- search key
-	- attribute or set of attributes used to loop up records in a file, may be different from primary key
-- index file
-	- consists of records (called index entries) of the form ([search-key, pointer to block])
-	- two basic kinds of indices
+Some basic concepts of indices are below:
+
+- Search Key
+
+	- attribute or set of attributes used to look up records in a file, may be different from primary key.
+
+- Index file
+
+	- Consists of records (called index entries) of the form ([search-key, pointer to block])
+	- Two basic kinds of indices
 		- ordered indices: search keys are stored in sorted order
 		- hash indices: search keys are distributed uniformly across "buckets" using a "hash function".
 
-ordered index
+Ordered Index
 - index entries are stored sorted on the search key value
 - associates the key with the records that contain it
 - the clustering index (also called the primary index) is an index whose search key defines the order of the index file
