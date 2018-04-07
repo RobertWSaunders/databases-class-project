@@ -344,6 +344,7 @@ Some basic concepts of indices are below:
 		- hash indices: search keys are distributed uniformly across "buckets" using a "hash function".
 
 Ordered Index
+
 - index entries are stored sorted on the search key value
 - associates the key with the records that contain it
 - the clustering index (also called the primary index) is an index whose search key defines the order of the index file
